@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/*! 
+/*!
  * @file SensorCombinedSubscriber.cpp
  * This file contains the implementation of the subscriber functions.
  *
@@ -36,7 +36,7 @@ SensorCombinedSubscriber::~SensorCombinedSubscriber() {	Domain::removeParticipan
 bool SensorCombinedSubscriber::init()
 {
 	// Create RTPSParticipant
-	
+
 	ParticipantAttributes PParam;
 	PParam.rtps.builtin.domainId = 0; //MUST BE THE SAME AS IN THE PUBLISHER
 	PParam.rtps.builtin.leaseDuration = c_TimeInfinite;
@@ -44,13 +44,13 @@ bool SensorCombinedSubscriber::init()
 	mp_participant = Domain::createParticipant(PParam);
 	if(mp_participant == nullptr)
 			return false;
-	
+
 	//Register the type
-	
-	Domain::registerType(mp_participant,(TopicDataType*) &myType);		
-			
+
+	Domain::registerType(mp_participant,(TopicDataType*) &myType);
+
 	// Create Subscriber
-			
+
 	SubscriberAttributes Rparam;
 	Rparam.topic.topicKind = NO_KEY;
 	Rparam.topic.topicDataType = myType.getName(); //Must be registered before the creation of the subscriber
@@ -77,18 +77,35 @@ void SensorCombinedSubscriber::SubListener::onSubscriptionMatched(Subscriber* su
 
 void SensorCombinedSubscriber::SubListener::onNewDataMessage(Subscriber* sub)
 {
-		// Take data
-		SensorCombined st;
-		
-		if(sub->takeNextData(&st, &m_info))
+	// Take data
+	SensorCombined sensor_data;
+
+	if(sub->takeNextData(&sensor_data , &m_info))
+	{
+		if(m_info.sampleKind == ALIVE)
 		{
-			if(m_info.sampleKind == ALIVE)
-			{
-				// Print your structure data here.
-				++n_msg;
-				cout << "Sample received, count=" << n_msg << endl;
-			}
+            cout << "\n\n\n\n\n\n\n\n\n\n";
+            cout << "Recived sensor_combined data" << endl;
+            cout << "============================" << endl;
+            cout << "timestamp: " << sensor_data.timestamp() << endl;
+            cout << "gyro_rad: " << sensor_data.gyro_rad().at(0);
+            cout << ", " << sensor_data.gyro_rad().at(1);
+            cout << ", " << sensor_data.gyro_rad().at(2) << endl;
+            cout << "gyro_integral_dt: " << sensor_data.gyro_integral_dt() << endl;
+            cout << "accelerometer_timestamp_relative: " << sensor_data.accelerometer_timestamp_relative() << endl;
+            cout << "accelerometer_m_s2: " << sensor_data.accelerometer_m_s2().at(0);
+            cout << ", " << sensor_data.accelerometer_m_s2().at(1);
+            cout << ", " << sensor_data.accelerometer_m_s2().at(2) << endl;
+            cout << "accelerometer_integral_dt: " << sensor_data.accelerometer_integral_dt() << endl;
+            cout << "magnetometer_timestamp_relative: " << sensor_data.magnetometer_timestamp_relative() << endl;
+            cout << "magnetometer_ga: " << sensor_data.magnetometer_ga().at(0);
+            cout << ", " << sensor_data.magnetometer_ga().at(1);
+            cout << ", " << sensor_data.magnetometer_ga().at(2) << endl;
+            cout << "baro_timestamp_relative: " << sensor_data.baro_timestamp_relative() << endl;
+            cout << "baro_alt_meter: " << sensor_data.baro_alt_meter() << endl;
+            cout << "baro_temp_celcius: " << sensor_data.baro_temp_celcius() << endl;
 		}
+	}
 }
 
 void SensorCombinedSubscriber::run()
@@ -97,4 +114,3 @@ void SensorCombinedSubscriber::run()
 	std::cin.ignore();
 	cout << "Shutting down the Subscriber." << endl;
 }
-
