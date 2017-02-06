@@ -40,6 +40,7 @@ public:
 private:
 	Participant *mp_participant;
 	Publisher *mp_publisher;
+	int m_uart_filestream;
 	
 	class PubListener : public PublisherListener
 	{
@@ -50,6 +51,9 @@ private:
 		int n_matched;
 	} m_listener;
 	SensorCombinedPubSubType myType;
+
+	uint8_t init_uart();
+	uint8_t readFromUART(SensorCombined &st);
 };
 
 #endif // _SENSORCOMBINED_PUBLISHER_H_
