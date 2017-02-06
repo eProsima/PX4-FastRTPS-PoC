@@ -59,7 +59,7 @@ int eprosima_cdr_main(int argc, char *argv[])
 
                 // Write serialized data trough UART
                 for(int j=0; j < s_length; j++){
-                    //dprintf(serial_fd, "%c", buffer[j]);
+                    dprintf(serial_fd, "%c", buffer[j]);
                 }
 			}
 		}
