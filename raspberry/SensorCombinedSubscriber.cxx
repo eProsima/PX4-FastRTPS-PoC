@@ -85,8 +85,8 @@ void SensorCombinedSubscriber::SubListener::onNewDataMessage(Subscriber* sub)
 		if(m_info.sampleKind == ALIVE)
 		{
             cout << "\n\n\n\n\n\n\n\n\n\n";
-            cout << "Recived sensor_combined data" << endl;
-            cout << "============================" << endl;
+            cout << "Received sensor_combined data" << endl;
+            cout << "=============================" << endl;
             cout << "timestamp: " << sensor_data.timestamp() << endl;
             cout << "gyro_rad: " << sensor_data.gyro_rad().at(0);
             cout << ", " << sensor_data.gyro_rad().at(1);
