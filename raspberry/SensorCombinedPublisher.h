@@ -35,12 +35,13 @@ class SensorCombinedPublisher
 public:
 	SensorCombinedPublisher();
 	virtual ~SensorCombinedPublisher();
-	bool init();
+	bool init(std::string &uart);
 	void run();
 private:
 	Participant *mp_participant;
 	Publisher *mp_publisher;
 	int m_uart_filestream;
+	std::string m_uart;
 	
 	class PubListener : public PublisherListener
 	{

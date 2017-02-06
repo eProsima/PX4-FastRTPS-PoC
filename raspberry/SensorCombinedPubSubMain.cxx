@@ -20,14 +20,19 @@
  */
 
 
+#include <string>
+
 #include "SensorCombinedPublisher.h"
 #include "SensorCombinedSubscriber.h"
 
 
 #include <fastrtps/Domain.h>
 
+
 using namespace eprosima;
 using namespace eprosima::fastrtps;
+
+const std::string DEFAULT_UART = "/dev/ttyACM0";
 
 int main(int argc, char** argv)
 {
@@ -50,6 +55,13 @@ int main(int argc, char** argv)
 		return 0;
 	}
 	
+
+    std::string uart = DEFAULT_UART;
+    if (argc > 2)
+    {
+        uart = argv[2];
+    }
+
 	// Register the type being used
 	
 	
@@ -58,7 +70,7 @@ int main(int argc, char** argv)
 		case 1:
 		{
 			SensorCombinedPublisher mypub;
-			if (mypub.init())
+			if (mypub.init(uart))
 			{
 				mypub.run();
 			}

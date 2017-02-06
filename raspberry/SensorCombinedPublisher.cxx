@@ -42,7 +42,11 @@
 
 
 
-SensorCombinedPublisher::SensorCombinedPublisher() : mp_participant(nullptr), mp_publisher(nullptr), m_uart_filestream(0) {}
+SensorCombinedPublisher::SensorCombinedPublisher(): mp_participant(nullptr),
+                                                    mp_publisher(nullptr),
+                                                    m_uart_filestream(0),
+                                                    m_uart("")
+{}
 
 SensorCombinedPublisher::~SensorCombinedPublisher() {	Domain::removeParticipant(mp_participant);}
 
@@ -61,11 +65,11 @@ uint8_t SensorCombinedPublisher::init_uart()
     //                                          immediately with a failure status if the output can't be written immediately.
     //
     //  O_NOCTTY - When set and path identifies a terminal device, open() shall not cause the terminal device to become the controlling terminal for the process.
-    m_uart_filestream = open("/dev/ttyACM0", O_RDWR | O_NOCTTY | O_NDELAY);      //Open in non blocking read/write mode
+    m_uart_filestream = open(m_uart.c_str(), O_RDWR | O_NOCTTY | O_NDELAY);      //Open in non blocking read/write mode
     if (m_uart_filestream == -1)
     {
         //ERROR - CAN'T OPEN SERIAL PORT
-        printf("Error - Unable to open UART.  Ensure it is not in use by another application\n");
+        printf("Error - Unable to open UART '%s'.  Ensure it is not in use by another application\n", m_uart.c_str());
     }
 
     //CONFIGURE THE UART
@@ -90,7 +94,7 @@ uint8_t SensorCombinedPublisher::init_uart()
     return 0;
 }
 
-bool SensorCombinedPublisher::init()
+bool SensorCombinedPublisher::init(std::string &uart)
 {
 	// Create RTPSParticipant
 	
@@ -117,6 +121,7 @@ bool SensorCombinedPublisher::init()
 		return false;
 	cout << "Publisher created, waiting for Subscribers." << endl;
 
+	m_uart = uart;
 	init_uart();
 
 	return true;
