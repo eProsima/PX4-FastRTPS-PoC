@@ -92,3 +92,5 @@ The entire application will follow this flow chart:
 If all steps has been followed, you should see this output on the subscriber side of Fast RTPS.
 
 .. image:: doc/subscriber.png
+
+A video of this final process as demostration is available on `https://youtu.be/NF65EPD-6aY <https://youtu.be/NF65EPD-6aY>`_
