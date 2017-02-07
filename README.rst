@@ -1,7 +1,7 @@
 PX4-FastRTPS-PoC
 ================
 
-This is a proof of concept to communicate a **Pixracer Autopilot** and a **Raspberry Pi** through serial ports using **CDR serialization**, aims to get information from a drone and carry to the DDS world through **FastRTPS**. 
+This is a proof of concept to communicate a **Pixracer Autopilot** and a **Raspberry Pi** through serial ports using **CDR serialization**, aims to get information from a drone and carry to the DDS world through **Fast RTPS**.
 
 .. image:: doc/schema.png
 
@@ -24,7 +24,7 @@ will use the USB port as output. Using */dev/ttyS1* or */dev/ttyS2* will write t
 
     > eprosima_cdr /dev/ttyACM0  #or /dev/ttySn
 
-NOTE: If the UART port selected is busy, it's possible that Mavlink applications were using them. If it is the case, you can stop Mavlink from NuttShell typing:
+**NOTE**: If the UART port selected is busy, it's possible that Mavlink applications were using them. If it is the case, you can stop Mavlink from NuttShell typing:
 
 .. code-block:: shell
 
@@ -44,26 +44,26 @@ Before runnning the application, it is needed to have installed Fast RTPS. Visit
     $ mkdir build && cd build
     $ cmake ..
     $ make
-    
+
 Now, to launch the publisher run:
 
 .. code-block:: shell
 
     $ ./raspberry_px4 publisher /dev/ttyACM0 #or the selected UART
-    
+
 And, for launching the subscriber run:
 
 .. code-block:: shell
 
     $ ./raspberry_px4 subscriber
 
-NOTE: Normally, it's necessary set up the UART port in the Raspberry Pi. To enable the serial port available on Raspberry Pi connector:
+**NOTE**: Normally, it's necessary set up the UART port in the Raspberry Pi. To enable the serial port available on Raspberry Pi connector:
 
-1.Make sure the userid (default is pi) is a member of the dialout group:. (which your usermod command did)
+1. Make sure the userid (default is pi) is a member of the dialout group:
 
 .. code-block:: shell
 
-    $ groups pi 
+    $ groups pi
     $ sudo usermod -a -G dialout pi
 
 2. You need to stop the already running on the GPIO serial console:
@@ -71,7 +71,7 @@ NOTE: Normally, it's necessary set up the UART port in the Raspberry Pi. To enab
 .. code-block:: shell
 
     $ sudo raspi-config
-    
+
 Go to *Interfacing options > Serial*, NO to *Would you like a login shell to be accessible over serial?*, valid and reboot.
 
 3. Check UART in kernel:
@@ -79,10 +79,16 @@ Go to *Interfacing options > Serial*, NO to *Would you like a login shell to be 
 .. code-block:: shell
 
    $ sudo vi /boot/config.txt
-   
+
 And enable UART setting *enable_uart=1*.
 
 Result
 ------
 
+The entire application will follow this flow chart:
+
+.. image:: doc/flowchart.png
+
 If all steps has been followed, you should see this output on the subscriber side of Fast RTPS.
+
+.. image:: doc/subscriber.png
