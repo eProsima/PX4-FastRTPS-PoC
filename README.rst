@@ -10,7 +10,7 @@ Pixracer firmware
 
 On the *Pixracer* side, it will be used an application running an uORB node. This node will be subscribed to the IMU sensor data via the *sensor_combined* topic. The applications read the message in a loop, serializes the struct and writes it trough an UART port selected by the user.
 
-To compile this appication along the **PX4** firmware it is needed to add the `eprosima_cdr <https://github.com/eProsima/PX4-FastRTPS-PoC/blob/master/pixracer/src/examples/eprosima_cdr>`_ folder on the examples folder (located on `src/examples <https://github.com/PX4/Firmware/tree/master/src/examples>`_). Then, the application must be registered in *NuttShell* adding a new line in `nuttx_px4fmu-v4_default.cmake<https://github.com/PX4/Firmware/blob/master/cmake/configs/nuttx_px4fmu-v4_default.cmake>`_ as described in the PX4 `documentation <https://dev.px4.io/tutorial-hello-sky.html#step-3-register-the-application-in-nuttshell-and-build-it>`_:
+To compile this appication along the **PX4** firmware it is needed to add the `eprosima_cdr <https://github.com/eProsima/PX4-FastRTPS-PoC/blob/master/pixracer/src/examples/eprosima_cdr>`_ folder on the examples folder (located on `src/examples <https://github.com/PX4/Firmware/tree/master/src/examples>`_). Then, the application must be registered in *NuttShell* adding a new line in `nuttx_px4fmu-v4_default.cmake <https://github.com/PX4/Firmware/blob/master/cmake/configs/nuttx_px4fmu-v4_default.cmake>`_ as described in the PX4 `documentation <https://dev.px4.io/tutorial-hello-sky.html#step-3-register-the-application-in-nuttshell-and-build-it>`_:
 
 .. code-block:: shell
 
