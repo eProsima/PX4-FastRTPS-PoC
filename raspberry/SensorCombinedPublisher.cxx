@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/*! 
+/*!
  * @file SensorCombinedPublisher.cpp
  * This file contains the implementation of the publisher functions.
  *
@@ -93,7 +93,7 @@ uint8_t SensorCombinedPublisher::init_uart()
 bool SensorCombinedPublisher::init()
 {
 	// Create RTPSParticipant
-	
+
 	ParticipantAttributes PParam;
 	PParam.rtps.builtin.domainId = 0;
 	PParam.rtps.builtin.leaseDuration = c_TimeInfinite;
@@ -101,13 +101,13 @@ bool SensorCombinedPublisher::init()
 	mp_participant = Domain::createParticipant(PParam);
 	if(mp_participant == nullptr)
 		return false;
-	
+
 	//Register the type
-	
+
 	Domain::registerType(mp_participant,(TopicDataType*) &myType);
-	
+
 	// Create Publisher
-	
+
 	PublisherAttributes Wparam;
 	Wparam.topic.topicKind = NO_KEY;
 	Wparam.topic.topicDataType = myType.getName();  //This type MUST be registered
@@ -144,7 +144,7 @@ uint8_t SensorCombinedPublisher::readFromUART(SensorCombined &st)
         // Read up to 255 characters from the port if they are there
         char rx_buffer[1014];
         int rx_length = read(m_uart_filestream, (void*)rx_buffer, sizeof(rx_buffer)); //Filestream, buffer to store in, number of bytes to read (max)
-        if (rx_length <= 0)
+        if (rx_length != 72)
         {
             printf(".");
             return 1;
@@ -187,12 +187,12 @@ void SensorCombinedPublisher::run()
 	{
 		eClock::my_sleep(250); // Sleep 250 ms
 	}
-	
+
 	// Publication code
 	SensorCombined st;
-		
+
 	/* Initialize your structure here */
-	
+
 	int msgsent = 0;
 	do
 	{
@@ -203,6 +203,6 @@ void SensorCombinedPublisher::run()
 			cout << "Sending sample, count=" << msgsent << endl;
 		}
 		usleep(100000);
-		
+
 	}while(true);
 }
