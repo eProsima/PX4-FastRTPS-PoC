@@ -3,7 +3,7 @@ PX4-FastRTPS-PoC
 
 This is a proof of concept to communicate a **Pixracer Autopilot** and a **Raspberry Pi** through serial ports using **CDR serialization**, aims to get information from a drone and carry to the DDS world through **Fast RTPS**.
 
-.. image:: doc/schema.png
+.. image:: doc/scheme.png
 
 Pixracer firmware
 -----------------
@@ -87,7 +87,7 @@ Result
 
 The entire application will follow this flow chart:
 
-.. image:: doc/flowchart.png
+.. image:: doc/architecture.png
 
 If all steps has been followed, you should see this output on the subscriber side of Fast RTPS.
 
