@@ -40,7 +40,7 @@ Before runnning the application, it is needed to have installed Fast RTPS. Visit
 .. code-block:: shell
 
     $ git clone https://github.com/eProsima/PX4-FastRTPS-PoC.git
-    $ cd PX4-FastRTPS-PoC/
+    $ cd PX4-FastRTPS-PoC/raspberry
     $ mkdir build && cd build
     $ cmake ..
     $ make
