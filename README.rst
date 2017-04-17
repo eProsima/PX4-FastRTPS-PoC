@@ -1,3 +1,11 @@
+.. image:: http://www.clipartkid.com/images/95/caution-sign-clipart-clipart-panda-free-clipart-images-qzFjSf-clipart.jpeg
+
+ATTENTION!
+==========
+
+This repo was created as a proof of concept and now is outdated. The work is been continued on `https://github.com/eProsima/Firmware.git <https://github.com/eProsima/Firmware.git>`_
+
+
 PX4-FastRTPS-PoC
 ================
 
